@@ -1,0 +1,61 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../redux-demo/redux-demo.html">
+
+<dom-module id="redux-with-polymer-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[message]]!</h2>
+    <h2>[[name]]</h2>
+    <button on-click="updateTheMesage">Change</button>
+    <button on-click="updateAgainTheMesage">Change Again</button>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class ReduxWithPolymerApp extends ReduxMixin(Polymer.Element) {
+      static get is() { return 'redux-with-polymer-app'; }
+      static get properties() {
+        return {
+          message: {
+            type: String,
+            statePath: 'message'
+          },
+          name: {
+            type: String,
+            statePath(state){
+              return 'Message from Redux : '+ state.name
+            }
+          }
+        };
+      }
+      static get actions(){
+        return {
+          update(message){
+            return {
+              type:'UPDATE', 
+              message
+            }
+          }
+        }
+      }
+      updateTheMesage() {
+        console.log('Lets update the message');
+        this.dispatch({
+          type: 'UPDATE',
+          message: 'This is changed Dynamically..!',
+        });
+      }
+      updateAgainTheMesage(){
+        this.dispatch('update', 'This is changed AGAIN..!')
+      }
+    }
+    window.customElements.define(ReduxWithPolymerApp.is, ReduxWithPolymerApp);
+  </script>
+</dom-module>

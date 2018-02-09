@@ -1,0 +1,7 @@
+{
+  "name": "redux-with-polymer",
+  "short_name": "redux-with-polymer",
+  "description": "Using redux in polymer application ",
+  "start_url": "/",
+  "display": "standalone"
+}
